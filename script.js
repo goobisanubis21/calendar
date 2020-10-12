@@ -42,5 +42,5 @@ $(document).ready(function () {
         showTask()
     })
 
-    // showTask();
+    showTask();
 });
