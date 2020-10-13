@@ -8,24 +8,24 @@ $(document).ready(function () {
     var currentTime = moment().format('H');
     var saveButton = $(".saveBtn");
     var hour = $(".hour");
-    var allTimes = ["9", "10", "11", "12", "13", "14", "15", "16", "17"];
-    // for(var i = 0; i < hour.length; i++) {
-    //     var times = hour.attr('value');
-    //     console.log(times[i])
-    // } 
+    var hours = ["9", "10", "11", "12", "13", "14", "15", "16", "17"];
+    // console.log() 
 
     function setColor() {
         for (var i = 0; i < hour.length; i++) {
-            if (currentTime == allTimes[i]) {
-                timeBlock.toggleClass("present");
+            for (var j = 0; j < hours[i].length; j++) {
+                hour.attr("class", hours[j]);
+                if (currentTime == hour[i]) {
+                    timeBlock.toggleClass("present");
+                }
+                if (currentTime < hours[i]) {
+                    timeBlock.toggleClass("future");
+                }
+                if (currentTime > hours[i]) {
+                    timeBlock.toggleClass("past");
+                }
             }
-            if (currentTime < allTimes[i]) {
-                timeBlock.toggleClass("future");
-            }
-            if (currentTime > allTimes[i]) {
-                timeBlock.toggleClass("past");
-            }
-        }console.log(allTimes)
+        } console.log(hour)
     }
     setColor();
 
@@ -36,9 +36,8 @@ $(document).ready(function () {
 
     saveButton.on("click", function () {
         var task = $(timeBlock).val();
-        task += $(this).val();
         localStorage.setItem("task", task);
-        console.log(task);
+        task = $(this).val();
         showTask()
     })
 
