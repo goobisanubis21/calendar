@@ -5,40 +5,46 @@ $(document).ready(function () {
     $("#currentDay").text(date);
 
     var timeBlock = $(".time-block");
-    var currentTime = moment().format('H');
+    var currentTime = moment().hours();
     var saveButton = $(".saveBtn");
     var hour = $(".hour");
-    var hours = ["9", "10", "11", "12", "13", "14", "15", "16", "17"];
-    // console.log() 
-
+    var task = localStorage.getItem("task");
+    
     function setColor() {
-        for (var i = 0; i < hour.length; i++) {
-            for (var j = 0; j < hours[i].length; j++) {
-                hour.attr("class", hours[j]);
-                if (currentTime == hour[i]) {
-                    timeBlock.toggleClass("present");
-                }
-                if (currentTime < hours[i]) {
-                    timeBlock.toggleClass("future");
-                }
-                if (currentTime > hours[i]) {
-                    timeBlock.toggleClass("past");
-                }
+        console.log("set color running")
+        $(".time-block").each(function () {
+            var hourBlock = $(this).attr("id");
+            if (currentTime > hourBlock) {
+               $(this).addClass("past");
             }
-        } console.log(hour)
+            else if (currentTime == hourBlock) {
+                console.log("futures")
+                $(this).removeClass("past");
+                $(this).addClass("present")
+
+            }
+            else if (currentTime < hourBlock) {
+                $(this).removeClass("present")
+                $(this).removeClass("past");
+                $(this).addClass("future")
+            }
+        })
     }
     setColor();
 
     function showTask() {
-        var showTask = localStorage.getItem("task");
-        timeBlock.text(showTask);
+        for (var i = 0; i < hour.length; i++) {
+            $(".timeBlock" + i + "task").val(localStorage.getItem("task"));
+            timeBlock.text(task)
+        }
     }
 
-    saveButton.on("click", function () {
-        var task = $(timeBlock).val();
+    saveButton.on("click", function (event) {
+        event.preventDefault();
+        var task = timeBlock.val();
         localStorage.setItem("task", task);
-        task = $(this).val();
-        showTask()
+        console.log(task)
+        showTask();
     })
 
     showTask();
