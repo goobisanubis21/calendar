@@ -11,7 +11,6 @@ $(document).ready(function () {
     var task = localStorage.getItem("task");
     
     function setColor() {
-        console.log("set color running")
         $(".time-block").each(function () {
             var hourBlock = $(this).attr("id");
             if (currentTime > hourBlock) {
@@ -32,12 +31,12 @@ $(document).ready(function () {
     }
     setColor();
 
-    function showTask() {
-        for (var i = 0; i < hour.length; i++) {
-            $(".timeBlock" + i + "task").val(localStorage.getItem("task"));
-            timeBlock.text(task)
-        }
-    }
+    // function showTask() {
+    //     for (var i = 0; i < hour.length; i++) {
+    //         $(".timeBlock" + i + "task").val(localStorage.getItem("task"));
+    //         timeBlock.text(task)
+    //     }
+    // }
 
     saveButton.on("click", function (event) {
         event.preventDefault();
@@ -47,5 +46,7 @@ $(document).ready(function () {
         showTask();
     })
 
-    showTask();
+    // showTask();
+
+    $("#9")
 });
