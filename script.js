@@ -10,6 +10,7 @@ $(document).ready(function () {
     var saveButton = $(".saveBtn");
     var timeBlock = $(".time-block")
 
+    setColor();
 
     // function to set the color according the time of day
     function setColor() {
@@ -40,29 +41,26 @@ $(document).ready(function () {
             }
         })
     }
-    setColor();
 
+    // running the show task function to see current tasks upon refresh
     showTask();
 
+    // when clicking on the save button, the text value within the text area will be saved to local storage using the id of the time block as the key and the task itself as the value. after it has been saved accordingly the show task function will be called
     saveButton.on("click", function (event) {
         event.preventDefault();
-
-        var saveButtonId = $(this).attr("id");
         var timeBlockId = $(this).attr("id");
-        var task = timeBlock.val();
-        if (saveButtonId = timeBlockId) {
-            localStorage.setItem("task", task);
-        }
-
-
-        showTask();
-        console.log(timeBlockId)
-        console.log("savebtn", saveButtonId)
+        var task = $(this).siblings(".time-block").val();
+        localStorage.setItem(timeBlockId, task);
+        showTask()
     })
 
+    // in show task it will loop through local storage, get whats in there and print it out to the text block according the its matching id
     function showTask() {
-        var task = localStorage.getItem("task");
-        timeBlock.text(task);
-        
+        for (var i = 9; i < 18; i++) {
+            var task = localStorage.getItem(i)
+            console.log(task);
+            $("#"+i+"").text(task);
+        }
     }
+
 });
